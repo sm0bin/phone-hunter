@@ -1,0 +1,34 @@
+{
+  "status": true,
+  "data": {
+    "mainFeatures": {
+      "storage": "32GB storage, no card slot",
+      "displaySize": "1.9 inches",
+      "chipSet": "Apple S7",
+      "memory": "32GB",
+      "sensors": [
+        "Accelerometer",
+        "gyro",
+        "heart rate",
+        "barometer",
+        "always-on altimeter",
+        "compass",
+        "SpO2",
+        "VO2max"
+      ]
+    },
+    "slug": "apple_watch_series_7-11146",
+    "name": "Watch Series 7",
+    "releaseDate": "Released 2021, October 15",
+    "brand": "Apple",
+    "image": "https://fdn2.gsmarena.com/vv/bigpic/apple-watch-series-7-stainless-steel.jpg",
+    "others": {
+      "WLAN": "Wi-Fi 802.11 b/g/n, dual-band",
+      "Bluetooth": "5.0, A2DP, LE",
+      "GPS": "Yes, with A-GPS, GLONASS, GALILEO, QZSS, BDS",
+      "NFC": "Yes",
+      "Radio": "No",
+      "USB": "No"
+    }
+  }
+}
