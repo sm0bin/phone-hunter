@@ -1,32 +1,12 @@
-// fetch("https://openapi.programming-hero.com/api/phones?search=iphone")
-//     .then(res => res.json())
-//     .then(data => console.log(data))
-
-
-
-// fetch("https://openapi.programming-hero.com/api/phones?search=samsung")
-//     .then(res => {
-//         if (!res) {
-//             throw new Error("Network response is not ok")
-//         }
-//         return res.json();
-//     })
-//     .then(data => console.log(data))
-//     .catch(error => {
-//         console.error("ERROR: ", error);
-//     })
-
 const products = document.getElementById("products");
 const searchField = document.getElementById("searchField");
 const searchBtn = document.getElementById("searchBtn");
 const showAllBtn = document.getElementById("showAllBtn");
 const showDetailsBtn = document.getElementById("showDetailsBtn");
 const showDetailsCloseBtn = document.getElementById("showDetailsCloseBtn");
-const popupModal = document.getElementById("popup-modal");
+const popupModal = document.getElementById("popupModal");
 
 const search = (searchFieldText, isShowAll = false) => {
-
-    // const searchFieldText = "apple";
     fetchData(searchFieldText, isShowAll);
 }
 
@@ -37,7 +17,6 @@ async function fetchData(searchText, isShowAll) {
             throw new Error("Response is not ok!");
         }
         const data = await res.json();
-        // console.log(data);
         displayData(data.data, isShowAll);
     } catch (error) {
         console.log("ERR: ", error);
@@ -55,26 +34,23 @@ searchBtn.addEventListener("click", () => {
 
 
 showAllBtn.addEventListener("click", () => {
-    // showAllBtn.toggleAttribute("hidden");
     search(searchFieldText, true);
     showAllBtn.classList.add("hidden");
-    // console.log("bbb");
 
 })
 
 
 function displayData(data, isShowAll = false) {
-    console.log(isShowAll, data.length);
+    // console.log(isShowAll, data.length);
     if (!isShowAll && data.length > 9) {
         data = data.slice(0, 9);
         showAllBtn.classList.remove("hidden");
-        // showAllBtn.toggleAttribute("hidden");
     } else {
 
         showAllBtn.classList.add("hidden");
     }
 
-    console.log(data);
+    // console.log(data);
     products.innerHTML = "";
     data.forEach(element => {
         //     const card = `
@@ -121,18 +97,22 @@ function displayData(data, isShowAll = false) {
                     Details</button>
             </div>`;
         products.appendChild(card);
-        console.log(element.slug);
+        // console.log(element.slug);
 
     });
 }
+
 
 function fetchDetails(slug) {
     fetch(`https://openapi.programming-hero.com/api/phone/${slug}`)
         .then(data => data.json())
         .then(json => showDetails(json.data))
-    // .then(json => console.log(json.data))
-    // popupModal.toggleAttribute("hidden");
-    // popupModal.classList.remove("hidden");
+
+    // document.getElementById("popup-modal").classList.remove(hidden);
+
+
+    // document.getElementById("")
+
 }
 
 // fetch(`https://openapi.programming-hero.com/api/phone/apple_watch_series_7-11146`)
@@ -151,7 +131,7 @@ function fetchDetails(slug) {
 
 
 function showDetails(slug) {
-    // console.log("clicked");
+    console.log(slug);
     popupModal.classList.remove("hidden");
     document.getElementById("phone-name").innerText = slug.name;
     document.getElementById("phone-storage").innerText = slug.mainFeatures.storage;
@@ -161,10 +141,16 @@ function showDetails(slug) {
     document.getElementById("phone-slug").innerText = slug.slug;
     document.getElementById("phone-release-date").innerText = slug.releaseDate;
     document.getElementById("phone-brand").innerText = slug.brand;
-    document.getElementById("phone-gps").innerText = slug.others.GPS;
+    if (slug.others.GPS) {
 
+        document.getElementById("phone-gps").innerText = slug.others.GPS;
+    } else {
+        // document.getElementById("phone-gps").innerText = "no";
+        console.log("wrong");
+    }
 
-
+    // document.querySelector("body").classList.add("pointer-events-none")
+    // console.log(document.querySelector("body"));
 }
 
 
@@ -173,10 +159,15 @@ function showDetails(slug) {
 
 //     // popupModal.toggleAttribute("hidden");
 // })
+
+
 showDetailsCloseBtn.addEventListener("click", () => {
-    // fetchDetails();
     popupModal.classList.add("hidden");
-    // popupModal.toggleAttribute("hidden");
 })
+
+// function showDetails() {
+//     popupModal.classList.remove("hidden");
+
+// }
 
 
