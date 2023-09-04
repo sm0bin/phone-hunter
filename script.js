@@ -5,6 +5,7 @@ const showAllBtn = document.getElementById("showAllBtn");
 const showDetailsBtn = document.getElementById("showDetailsBtn");
 const showDetailsCloseBtn = document.getElementById("showDetailsCloseBtn");
 const popupModal = document.getElementById("popupModal");
+const loadingSpinner = document.getElementById("loading");
 
 const search = (searchFieldText, isShowAll = false) => {
     fetchData(searchFieldText, isShowAll);
@@ -28,6 +29,7 @@ async function fetchData(searchText, isShowAll) {
 let searchFieldText = "";
 
 searchBtn.addEventListener("click", () => {
+    loadingSpinner.classList.remove("hidden");
     searchFieldText = searchField.value;
     search(searchFieldText);
 });
@@ -100,6 +102,8 @@ function displayData(data, isShowAll = false) {
         // console.log(element.slug);
 
     });
+
+    loadingSpinner.classList.add("hidden");
 }
 
 
@@ -131,8 +135,9 @@ function fetchDetails(slug) {
 
 
 function showDetails(slug) {
-    console.log(slug);
+    // console.log(slug);
     popupModal.classList.remove("hidden");
+    document.getElementById("product-image").src = slug.image;
     document.getElementById("phone-name").innerText = slug.name;
     document.getElementById("phone-storage").innerText = slug.mainFeatures.storage;
     document.getElementById("phone-display-size").innerText = slug.mainFeatures.displaySize;
@@ -141,13 +146,7 @@ function showDetails(slug) {
     document.getElementById("phone-slug").innerText = slug.slug;
     document.getElementById("phone-release-date").innerText = slug.releaseDate;
     document.getElementById("phone-brand").innerText = slug.brand;
-    if (slug.others.GPS) {
-
-        document.getElementById("phone-gps").innerText = slug.others.GPS;
-    } else {
-        // document.getElementById("phone-gps").innerText = "no";
-        console.log("wrong");
-    }
+    document.getElementById("phone-gps").innerText = slug.others?.GPS ? slug.others.GPS : "No GPS";
 
     // document.querySelector("body").classList.add("pointer-events-none")
     // console.log(document.querySelector("body"));
